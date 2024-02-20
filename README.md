@@ -7,4 +7,8 @@
     - [ ] pagination when returning filterd data
 - [ ] test for high number of cheques (1 million and optimze the code based on that😁😁) (good luck🐧🐧)
 
+### Main Table
+![image](https://github.com/Abduallah-Kadry/Cheque-Generator/assets/60946700/038e3fda-6fae-4382-8a6d-f2a4181bba59)
 
+### Filtering using Ajax and fields
+![image](https://github.com/Abduallah-Kadry/Cheque-Generator/assets/60946700/da41a06e-c93d-4100-88b8-2e4200831a49)
