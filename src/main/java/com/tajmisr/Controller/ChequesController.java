@@ -76,8 +76,9 @@ public class ChequesController {
     // editing is about passing the attributes to the creation form
     @GetMapping("cheques/editCheque/{id}")
     public String showEditForm(@PathVariable int id, Model model, RedirectAttributes ra) {
+
         try {
-            cheque = chequesServices.getChequeById(id);
+            Cheque cheque = chequesServices.getChequeById(id);
             model.addAttribute("Cheque", cheque);
             model.addAttribute("pageTitle", "Edit Cheque: " + id);
             return "ChequeForm";
