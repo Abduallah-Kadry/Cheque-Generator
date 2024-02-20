@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cheques Management</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/Global.css}"/>
+</head>
+
+<body>
+
+<!-- TODO Pagination for only 500 record per page -->
+<!-- TODO Bulk EDIT using select box-->
+<!-- TODO implement a drag column mechanism -->
+
+<div class="container-fluid text-center">
+
+    <h2 class="mb-4">Cheques Table</h2>
+    <div id="alertContainer" class="alert-container">
+        <div th:if="${messages}" class="alert alert-success text-center float-alert" id="alertMessage">
+            [[${messages}]]
+        </div>
+    </div>
+
+    <div class="text-left">
+        <a th:href="@{/cheques/newCheque}" class="btn btn-primary mb-2 ">New Cheque</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                ID
+                <div class="filter">
+                    <input type="text" id="chequeIDs" name="chequeIDs" class="form-control"
+                           placeholder="Enter IDs (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Cheque Name
+                <div class="filter">
+                    <input type="text" id="chequeNames" name="chequeNames" class="form-control"
+                           placeholder="Enter cheque names (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Project Name
+                <div class="filter">
+                    <input type="text" id="projectNames" name="projectNames" class="form-control"
+                           placeholder="Enter project names (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Unit
+                <div class="filter">
+                    <input type="text" id="units" name="units" class="form-control"
+                           placeholder="Enter units (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Payment Type
+                <div class="filter">
+                    <input type="text" id="paymentTypes" name="paymentTypes" class="form-control"
+                           placeholder="Enter payment types (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Corporation
+                <div class="filter">
+                    <input type="text" id="corporations" name="corporations" class="form-control"
+                           placeholder="Enter corporations (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Bank
+                <div class="filter">
+                    <input type="text" id="banks" name="banks" class="form-control"
+                           placeholder="Enter banks (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Cheque Date
+                <div class="filter">
+                    <label>From:</label>
+                    <input type="date" id="chequeDateFrom" name="chequeDateFrom" class="form-control">
+                    <label>To:</label>
+                    <input type="date" id="chequeDateTo" name="chequeDateTo" class="form-control">
+                </div>
+            </th>
+            <th scope="col">
+                Cheque Number
+                <div class="filter">
+                    <input type="text" id="chequeNumbers" name="chequeNumbers" class="form-control"
+                           placeholder="Enter cheque numbers (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Notes
+                <div class="filter">
+                    <input type="text" id="notes" name="notes" class="form-control"
+                           placeholder="Enter notes (comma-separated)">
+                </div>
+            </th>
+            <th scope="col">
+                Archived Date
+                <div class="filter">
+                    <label>From:</label>
+                    <input type="date" id="archivedDateFrom" name="archivedDateFrom" class="form-control">
+                    <label>To:</label>
+                    <input type="date" id="archivedDateTo" name="archivedDateTo" class="form-control">
+                </div>
+            </th>
+            <th scope="col">Edit/Delete</th>
+        </tr>
+        </thead>
+        <tbody id="tableBodyPlaceHolder">
+        <!-- TODO implement the Pagination mechanism here-->
+        <th:block th:each="cheque : ${listCheques}">
+            <tr>
+                <td th:text="${cheque.id}"></td>
+                <td th:text="${cheque.chequeName}"></td>
+                <td th:text="${cheque.projectName}"></td>
+                <td th:text="${cheque.unit}"></td>
+                <td th:text="${cheque.paymentType}"></td>
+                <td th:text="${cheque.corporation}"></td>
+                <td th:text="${cheque.bank}"></td>
+                <td th:text="${cheque.chequeDate}"></td>
+                <td th:text="${cheque.chequeNumber}"></td>
+                <td th:text="${cheque.notes}"></td>
+                <td th:text="${cheque.archivedDate}"></td>
+                <td>
+                    <a class="h5" th:href="@{'/cheques/editCheque/' + ${cheque.id}}">Edit</a>
+                    <a class="h5" href="javascript:void(0)"
+                       th:onclick="'confirmDelete(' + ${cheque.id} +');'">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <nav th:if="${totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                <a class="page-link"
+                   th:href="@{'/cheques/allCheques?pageNumber=' + ${currentPage - 1}}">Previous</a>
+            </li>
+
+            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+                <li th:if="${i == 1 or i == totalPages or (i >= currentPage - 2 and i <= currentPage + 2)}"
+                    class="page-item"
+                    th:classappend="${currentPage == i} ? 'active' : ''">
+                    <a class="page-link" th:href="@{'/cheques/allCheques?pageNumber=' + ${i}}"><span
+                            th:text="${i}"></span></a>
+                </li>
+            </th:block>
+
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{'/cheques/allCheques?pageNumber=' + ${currentPage + 1}}">Next</a>
+            </li>
+
+        </ul>
+    </nav>
+
+</div>
+
+<script th:src="@{/js/searchCheques.js}"></script>
+
+
+</body>
+</html>

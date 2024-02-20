@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Cheque</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+</head>
+<body>
+
+<!--TODO Validation in each field-->
+<div class="container">
+  <h2 class="mb-4">Create New Cheque</h2>
+  <form th:action="@{/saveCheque}" method="post" th:object="${Cheque}">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="chequeName" class="form-label">Cheque Name</label>
+        <input type="text" class="form-control" id="chequeName" th:field="*{chequeName}" name="chequeName" required>
+      </div>
+      <div class="col-md-6">
+        <label for="projectName" class="form-label">Project Name</label>
+        <input type="text" class="form-control" id="projectName" th:field="*{projectName}" name="projectName" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="unit" class="form-label">Unit</label>
+        <input type="text" class="form-control" id="unit" th:field="*{unit}" name="unit" required>
+      </div>
+      <div class="col-md-6">
+        <label for="paymentType" class="form-label">Payment Type</label>
+        <input type="text" class="form-control" id="paymentType" th:field="*{paymentType}" name="paymentType" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="corporation" class="form-label">Corporation</label>
+        <input type="text" class="form-control" id="corporation" th:field="*{corporation}" name="corporation" required>
+      </div>
+      <div class="col-md-6">
+        <label for="bank" class="form-label">Bank</label>
+        <input type="text" class="form-control" id="bank" th:field="*{bank}" name="bank" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="chequeDate" class="form-label">Cheque Date</label>
+        <input type="date" class="form-control" id="chequeDate" th:field="*{chequeDate}" name="chequeDate" required>
+      </div>
+      <div class="col-md-6">
+        <label for="chequeNumber" class="form-label">Cheque Number</label>
+        <input type="text" class="form-control" id="chequeNumber" th:field="*{chequeNumber}" name="chequeNumber" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="archivedDate" class="form-label">Archived Date</label>
+        <input type="date" class="form-control" id="archivedDate" th:field="*{archivedDate}" name="archivedDate" required>
+      </div>
+      <div class="col-md-6">
+        <label for="notes" class="form-label">Notes</label>
+        <input type="text" class="form-control" id="notes" th:field="*{notes}" name="notes">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
