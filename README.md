@@ -5,7 +5,7 @@
 - [ ] complete the pagination
     - [x] pagination of the main table
     - [ ] pagination when returning filterd data
-- [ ] test for high number of cheques (1 million and optimze the code based on that😁😁) (good luck🐧🐧)
+- [ ] test fo high number of cheques (1 million and optimze the code based on that😁😁) (good luck🐧🐧)
 
 ### Main Table
 ![image](https://github.com/Abduallah-Kadry/Cheque-Generator/assets/60946700/038e3fda-6fae-4382-8a6d-f2a4181bba59)
